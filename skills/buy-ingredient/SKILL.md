@@ -94,7 +94,7 @@ parameter is enforced by the contract on top of fees.
 
 ## Attribution
 
-Builder code (ERC-8021 `bc_jz31voih`) is appended to calldata so the trade
+Builder code (ERC-8021 `bc_qh2d9gah`) is appended to calldata so the trade
 is credited to Chef Universe in indexers and analytics. The SDK injects this
 automatically; do not strip it.
 
