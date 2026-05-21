@@ -45,7 +45,7 @@ To check the deadline:
 
 ## Execute claim
 
-The claim is an on-chain transaction. The exact entry point depends on the
+The claim is an onchain transaction. The exact entry point depends on the
 Tycoons Arena settlement implementation in production.
 
 > **Status**: This skill is a placeholder for the production claim flow.

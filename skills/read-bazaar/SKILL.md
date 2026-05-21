@@ -40,7 +40,7 @@ for (const s of bazaar.top_signals) {
 ```ts
 {
   generated_at_ms: number   // Unix ms when this payload was built
-  block_number:    number   // Base block number the on-chain layer was read at
+  block_number:    number   // Base block number the onchain layer was read at
   cache_age_sec:   number   // 0–60 for hot cache; freshness self-check
 
   global_asset: {

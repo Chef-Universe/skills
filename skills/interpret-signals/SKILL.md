@@ -75,7 +75,7 @@ a recent window.
 `MOMENTUM_12H` requires `price_change_12h_pct` to be non-null (also Gecko-
 sourced).
 
-`SUPPLY_MILESTONE` is on-chain only, so it always fires accurately regardless
+`SUPPLY_MILESTONE` is onchain only, so it always fires accurately regardless
 of Gecko coverage.
 
 ## Pseudocode

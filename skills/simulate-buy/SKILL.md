@@ -37,7 +37,7 @@ function simulateBuy(
   chefIn: number,
 ) {
   // Decimal-string steps → numbers (precision-loss is acceptable for sizing
-  // estimates; see Mint Club V2 SDK for precise on-chain math).
+  // estimates; see Mint Club V2 SDK for precise onchain math).
   const numericSteps = steps.map(s => ({
     rangeTo: parseFloat(s.range_to),
     price:   parseFloat(s.price),
