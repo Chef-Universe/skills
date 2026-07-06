@@ -67,10 +67,12 @@ Strong combos:
 
 ## Reliability gating
 
-`VOLUME_SPIKE_24H` and `LOW_VALUATION` only fire when
-`volume_source === 'gecko_ohlcv'` for that token. If a ticker only has
-`leaderboard_season` data, treat its volume number as a season aggregate, not
-a recent window.
+`VOLUME_SPIKE_24H` and `LOW_VALUATION` fire when `volume_source` is a real 24 h
+window — either `gecko_ohlcv` **or** `indexer_24h` (our own Mint/Burn 24 h
+buy+sell fallback). Both are directly comparable to each other. A token with
+`volume_24h_chef === 0` fires neither (nothing to spike). The legacy
+`leaderboard_season` value is no longer emitted; if you ever see it, treat that
+volume as a season aggregate, not a recent window.
 
 `MOMENTUM_12H` requires `price_change_12h_pct` to be non-null (also Gecko-
 sourced).

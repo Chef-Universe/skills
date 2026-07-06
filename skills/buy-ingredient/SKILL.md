@@ -75,8 +75,9 @@ Pull these from `read-bazaar` for your target ticker:
   is risky; reduce or split.
 - `progress` — if `>= 0.90` (`SUPPLY_MILESTONE`), each step bumps price hard;
   `slippage` of 1–3% may be too tight.
-- `volume_source` — if `'leaderboard_season'`, you have no real-time price
-  signal; consider a smaller size.
+- `volume_source` — if `'indexer_24h'` (Gecko had no candles), you still get a
+  real 24 h volume figure but `price_change_*_pct` is `null`, so you have no
+  real-time price-trend signal; consider a smaller size.
 
 ## Royalties / fees
 

@@ -69,7 +69,8 @@ for (const s of bazaar.top_signals) {
       partial_fill:    boolean
     }
     volume_24h_chef:       number
-    volume_source:         'gecko_ohlcv' | 'leaderboard_season' | 'none'
+    volume_source:         'gecko_ohlcv' | 'indexer_24h' | 'leaderboard_season' | 'none'
+    season_volume_chef:    number
     price_change_24h_pct:  number | null
     price_change_12h_pct:  number | null
     signals: Array<{ kind, score, note }>
@@ -87,10 +88,18 @@ for (const s of bazaar.top_signals) {
 
 ## Reliability notes
 
-- `volume_source: 'gecko_ohlcv'` → the 24 h figure is a real rolling window
-- `volume_source: 'leaderboard_season'` → token isn't well-indexed by Gecko;
-  the 24 h figure is actually a season aggregate. Don't compare it to other
-  tokens' real 24 h numbers without normalizing.
+- `volume_24h_chef` is **always** a real 24 h rolling window and is directly
+  comparable across tokens. Two sources feed it:
+  - `volume_source: 'gecko_ohlcv'` → from GeckoTerminal OHLCV.
+  - `volume_source: 'indexer_24h'` → Gecko had no candles, so it comes from our
+    own Mint/Burn scan and equals `buy_volume_24h_chef + sell_volume_24h_chef`.
+    `price_change_*_pct` is `null` in this case (price change is Gecko-only).
+  A `0` means genuinely no trades in the last 24 h.
+- `season_volume_chef` → season-to-date cumulative (mint+burn). Use it as a
+  baseline/denominator, **not** as a 24 h figure. Never treat it as recent volume.
+- `leaderboard_season` is a legacy `volume_source` value that is no longer
+  returned; earlier it (mis)labelled a season total as 24 h. If you still see it,
+  treat that token's `volume_24h_chef` as a season aggregate.
 - `cache_age_sec`: clamp tightly (`< 70`) if your strategy is sensitive to
   staleness.
 
