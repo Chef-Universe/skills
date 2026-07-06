@@ -74,8 +74,10 @@ buy+sell fallback). Both are directly comparable to each other. A token with
 `leaderboard_season` value is no longer emitted; if you ever see it, treat that
 volume as a season aggregate, not a recent window.
 
-`MOMENTUM_12H` requires `price_change_12h_pct` to be non-null (also Gecko-
-sourced).
+`MOMENTUM_12H` requires `price_change_12h_pct` to be non-null. That value comes
+from Gecko OHLCV when available, otherwise it is derived off the bond curve
+(`price_change_source: 'bond_curve'`), so momentum can fire for any traded token
+— not just Gecko-listed ones.
 
 `SUPPLY_MILESTONE` is onchain only, so it always fires accurately regardless
 of Gecko coverage.

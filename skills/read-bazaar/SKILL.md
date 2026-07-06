@@ -73,6 +73,7 @@ for (const s of bazaar.top_signals) {
     season_volume_chef:    number
     price_change_24h_pct:  number | null
     price_change_12h_pct:  number | null
+    price_change_source:   'gecko_ohlcv' | 'bond_curve' | 'none'
     signals: Array<{ kind, score, note }>
   }>
 
@@ -93,8 +94,14 @@ for (const s of bazaar.top_signals) {
   - `volume_source: 'gecko_ohlcv'` → from GeckoTerminal OHLCV.
   - `volume_source: 'indexer_24h'` → Gecko had no candles, so it comes from our
     own Mint/Burn scan and equals `buy_volume_24h_chef + sell_volume_24h_chef`.
-    `price_change_*_pct` is `null` in this case (price change is Gecko-only).
   A `0` means genuinely no trades in the last 24 h.
+- `price_change_*_pct` is filled from Gecko OHLCV (`price_change_source:
+  'gecko_ohlcv'`) or, when Gecko has no candles, **derived off the bond curve**
+  (`'bond_curve'`) — price now vs. the curve price at the reconstructed supply
+  Nh ago. Since a Mint Club price is a deterministic function of supply, the
+  bond-curve value IS the real change and is available for any traded token. A
+  `0` is a genuine flat (or a supply move that stayed inside one curve step);
+  only `price_change_source: 'none'` means unknown (both fields `null`).
 - `season_volume_chef` → season-to-date cumulative (mint+burn). Use it as a
   baseline/denominator, **not** as a 24 h figure. Never treat it as recent volume.
 - `leaderboard_season` is a legacy `volume_source` value that is no longer

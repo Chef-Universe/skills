@@ -76,8 +76,9 @@ Pull these from `read-bazaar` for your target ticker:
 - `progress` — if `>= 0.90` (`SUPPLY_MILESTONE`), each step bumps price hard;
   `slippage` of 1–3% may be too tight.
 - `volume_source` — if `'indexer_24h'` (Gecko had no candles), you still get a
-  real 24 h volume figure but `price_change_*_pct` is `null`, so you have no
-  real-time price-trend signal; consider a smaller size.
+  real 24 h volume figure, and `price_change_*_pct` is derived off the bond
+  curve (`price_change_source: 'bond_curve'`) rather than left null, so you keep
+  a real price-trend signal even without Gecko coverage.
 
 ## Royalties / fees
 
